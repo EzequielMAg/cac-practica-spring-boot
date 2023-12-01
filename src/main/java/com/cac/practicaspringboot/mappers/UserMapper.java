@@ -7,15 +7,25 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class UserMapper {
 
-    public User dtoToUser(UserDTO dto) {
+    public static User dtoToUser(UserDTO dto) {
         User user = new User();
+        user.setName(dto.getName());
+        user.setSurname(dto.getSurname());
+        user.setDni(dto.getDni());
+        user.setEmail(dto.getEmail());
+        user.setPassword(dto.getPassword());
 
-        user.setName();
-        user.setSurname();
-        user.setDni();
-        user.setEmail();
-        user.setPassword();
+        return user;
+    }
+    public static UserDTO userToDto(User user) {
+        UserDTO dto = new UserDTO();
+        dto.setName(user.getName());
+        dto.setSurname(user.getSurname());
+        dto.setDni(user.getDni());
+        dto.setEmail(user.getEmail());
+        dto.setPassword(user.getPassword());
 
+        return dto;
     }
 
 }

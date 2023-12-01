@@ -33,14 +33,12 @@ public class UserController {
     }
 
     // Con @GetMapping cuando un usuario escriba tal url, se va a ejecutar el metodo asociado
-    // TODO: Refactorizar el metodo para que retorne un ResponseEntity<List<UserDTO>>
     @GetMapping
-    public List<String> getUsers() {
+    public ResponseEntity<List<UserDTO>> getUsers() {
 
-        List<String> lista = this.service.getUsers();
+        List<UserDTO> lista = this.service.getUsers();
 
-        //return List.of("Cristiam", "Martina", "Lucas");
-        return lista;
+        return ResponseEntity.status(HttpStatus.OK).body(lista);
     }
 
     // Con @PathVariable se agarra el id pasado en el path
