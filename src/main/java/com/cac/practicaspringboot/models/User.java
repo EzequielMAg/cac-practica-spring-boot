@@ -24,4 +24,12 @@ public class User {
     @Column(name = "contraseña")
     private String password;
 
+    @Column(name = "nombre")
+    private String name;
+
+    @Column(name = "apellido")
+    private String surname;
+
+    private String dni;
+
 }
