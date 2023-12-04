@@ -11,6 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor  // Esta genera un constructor vaci o
 public class UserDTO {
 
+    private Long id;
     private String email;
     private String password;
     private String name;
