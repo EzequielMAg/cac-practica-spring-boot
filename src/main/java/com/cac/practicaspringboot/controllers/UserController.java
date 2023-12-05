@@ -1,5 +1,6 @@
 package com.cac.practicaspringboot.controllers;
 
+import com.cac.practicaspringboot.exceptions.UserNotExistsException;
 import com.cac.practicaspringboot.models.DTOs.UserDTO;
 import com.cac.practicaspringboot.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +44,8 @@ public class UserController {
 
     // Con @PathVariable se agarra el id pasado en el path
     @GetMapping(value = "/{id}")
-    public UserDTO getUserById(@PathVariable Long id) {
-        return null;
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.service.getUserById(id));
     }
 
     @PostMapping
@@ -53,16 +54,19 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.createUser(user));
     }
 
-    public void updateAllUser() {
+    @PutMapping(value = "/{id}")
+    public void updateAllUser(@PathVariable Long id) {
 
     }
 
-    public void updateUser() {
+    @PatchMapping(value = "/{id}")
+    public void updateUser(@PathVariable Long id) {
 
     }
 
-    public void deleteUser() {
-
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.service.deleteUser(id));
     }
 
 }

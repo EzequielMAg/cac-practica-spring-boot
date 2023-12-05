@@ -1,10 +1,13 @@
 package com.cac.practicaspringboot.services;
 
+import com.cac.practicaspringboot.exceptions.UserNotExistsException;
 import com.cac.practicaspringboot.mappers.UserMapper;
 import com.cac.practicaspringboot.models.DTOs.UserDTO;
 import com.cac.practicaspringboot.models.User;
 import com.cac.practicaspringboot.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,8 +37,25 @@ public class UserService {
         return usersDtos;
     }
 
+
     public UserDTO createUser(UserDTO userDTO) {
         User user = repository.save(UserMapper.dtoToUser(userDTO));
         return UserMapper.userToDto(user);
+    }
+
+    public UserDTO getUserById(Long id) {
+        // Obtengo el usuario de la DB segun su id
+        User entity = repository.findById(id).get();
+
+        return UserMapper.userToDto(entity);
+    }
+
+    public String deleteUser(Long id) {
+        if(this.repository.existsById(id)) {
+            this.repository.deleteById(id);
+            return "El usuario con id " + id + " ha sido eliminado!";
+        } else {
+            throw new UserNotExistsException("El usuario a eliminar elegido no existe!");
+        }
     }
 }
