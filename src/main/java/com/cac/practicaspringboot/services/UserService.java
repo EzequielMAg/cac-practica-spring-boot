@@ -6,8 +6,6 @@ import com.cac.practicaspringboot.models.DTOs.UserDTO;
 import com.cac.practicaspringboot.models.User;
 import com.cac.practicaspringboot.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,10 +35,17 @@ public class UserService {
         return usersDtos;
     }
 
+    public UserDTO createUser(UserDTO userDto) {
 
-    public UserDTO createUser(UserDTO userDTO) {
-        User user = repository.save(UserMapper.dtoToUser(userDTO));
-        return UserMapper.userToDto(user);
+        User userValidated = validateUserByEmail(userDto.getEmail());
+        if(userValidated == null) {
+
+            User userSaved = repository.save(UserMapper.dtoToUser(userDto));
+            return UserMapper.userToDto(userSaved);
+        }
+
+        throw new UserNotExistsException("Usuario con email " + userDto.getEmail() + " ya existe!");
+
     }
 
     public UserDTO getUserById(Long id) {
@@ -51,11 +56,52 @@ public class UserService {
     }
 
     public String deleteUser(Long id) {
-        if(this.repository.existsById(id)) {
-            this.repository.deleteById(id);
+        if(repository.existsById(id)) {
+            repository.deleteById(id);
             return "El usuario con id " + id + " ha sido eliminado!";
         } else {
             throw new UserNotExistsException("El usuario a eliminar elegido no existe!");
         }
     }
+    
+    public UserDTO updateUser(Long id, UserDTO dto) {
+        // Primero verifico si existe un usuario con ese id en la BD
+        if(repository.existsById(id)) {
+
+            // Consigo el usuario a modificar desde la BD
+            User userToModify = repository.findById(id).get();
+
+            // Validar que datos no vienen en null para modificar el objeto traido de la BD
+            // LOGICA DEL PATCH|
+            if(dto.getEmail() != null)
+                userToModify.setEmail(dto.getEmail());
+
+            if(dto.getPassword() != null)
+                userToModify.setPassword(dto.getPassword());
+
+            if(dto.getName() != null)
+                userToModify.setName(dto.getName());
+
+            if(dto.getSurname() != null)
+                userToModify.setSurname(dto.getSurname());
+
+            if(dto.getDni() != null)
+                userToModify.setDni(dto.getDni());
+
+            // Persistimos la modificacion del usuario en la BD
+            User userModified = repository.save(userToModify);
+
+            return UserMapper.userToDto(userModified);
+        }
+        return null;
+    }
+
+    // Validar que existan usuarios unicos por mail
+    public User validateUserByEmail(String email) {
+        //TODO: quiero refactorizar esto para retonar un boolean, entonces usaria el otro metodo
+        // del repositorio: existsByEmail()
+        return repository.findByEmail(email).get();
+    }
+
+
 }
