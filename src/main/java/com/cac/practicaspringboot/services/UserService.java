@@ -1,5 +1,8 @@
 package com.cac.practicaspringboot.services;
 
+import com.cac.practicaspringboot.exceptions.FatalErrorException;
+import com.cac.practicaspringboot.exceptions.UserAttributesNullException;
+import com.cac.practicaspringboot.exceptions.UserEmailExistsException;
 import com.cac.practicaspringboot.exceptions.UserNotExistsException;
 import com.cac.practicaspringboot.mappers.UserMapper;
 import com.cac.practicaspringboot.models.DTOs.UserDTO;
@@ -38,14 +41,14 @@ public class UserService {
     public UserDTO createUser(UserDTO userDto) {
 
         User userValidated = validateUserByEmail(userDto.getEmail());
+        System.out.println(userValidated);
         if(userValidated == null) {
 
             User userSaved = repository.save(UserMapper.dtoToUser(userDto));
             return UserMapper.userToDto(userSaved);
         }
 
-        throw new UserNotExistsException("Usuario con email " + userDto.getEmail() + " ya existe!");
-
+        throw new UserEmailExistsException("Usuario con email " + userDto.getEmail() + " ya existe!");
     }
 
     public UserDTO getUserById(Long id) {
@@ -93,15 +96,54 @@ public class UserService {
 
             return UserMapper.userToDto(userModified);
         }
+        throw new UserNotExistsException("El usuario con id " + id + " no existe!");
+    }
+
+    public UserDTO updateAllUser(Long id, UserDTO dto) {
+        // Primero verifico si existe un usuario con ese id en la BD
+        // TODO: Y validar que todos los datos del "dto" no vienen en null
+        if(repository.existsById(id) && validateUserDtoAttributes(dto)) {
+
+            // Consigo el usuario a modificar desde la BD
+            User userToModify = repository.findById(id).get();
+
+            // LOGICA DEL PUT
+            userToModify.setEmail(dto.getEmail());
+            userToModify.setPassword(dto.getPassword());
+            userToModify.setName(dto.getName());
+            userToModify.setSurname(dto.getSurname());
+            userToModify.setDni(dto.getDni());
+
+            // Persistimos la modificacion del usuario en la BD
+            User userModified = repository.save(userToModify);
+
+            return UserMapper.userToDto(userModified);
+        }
+
+        if(!repository.existsById(id) && !validateUserDtoAttributes(dto))
+            throw new FatalErrorException("El usuario con id " + id +
+                                             " no existe! Y ademas uno o varios atributos son nulos");
+
+        if(!repository.existsById(id))
+            throw new UserNotExistsException("El usuario con id " + id + " no existe!");
+
+        if(!validateUserDtoAttributes(dto))
+            throw new UserAttributesNullException("Uno o varios de los atributos enviados son nulos");
+
         return null;
     }
 
     // Validar que existan usuarios unicos por mail
     public User validateUserByEmail(String email) {
-        //TODO: quiero refactorizar esto para retonar un boolean, entonces usaria el otro metodo
-        // del repositorio: existsByEmail()
-        return repository.findByEmail(email).get();
+        return repository.findByEmail(email);
     }
 
+    public boolean validateUserDtoAttributes(UserDTO dto) {
+        return dto.getEmail() != null &&
+               dto.getPassword() != null &&
+               dto.getName() != null &&
+               dto.getSurname() != null &&
+               dto.getDni() != null;
+    }
 
 }

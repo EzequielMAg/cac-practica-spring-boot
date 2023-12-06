@@ -14,7 +14,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     // Podemos crearlos de la siguiente forma, por ejemplo para el email, u algun otro atributo, pero
     // siempre y cuando sea respecto a un atributo de la entity
 
-    Optional<User> findByEmail(String email);
+    User findByEmail(String email);
 
     Boolean existsByEmail(String email);
 

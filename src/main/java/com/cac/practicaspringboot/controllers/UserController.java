@@ -55,8 +55,8 @@ public class UserController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO user) {
-        return ResponseEntity.status(HttpStatus.OK).body(service.updateUser(id, user));
+    public ResponseEntity<UserDTO> updateAllUser(@PathVariable Long id, @RequestBody UserDTO user) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.updateAllUser(id, user));
     }
 
     // EL PROFE BORRO ESTE METODO PATCH y dijo que para nuestro proyecto, es suficiente con el metodo de arriba.
@@ -66,10 +66,10 @@ public class UserController {
     // Y el PUT es para MODIFICAR COMPLETAMENTE un objeto, Y SE DEBE MODIFICAR TODx EL USUARIO CON TODOS LOS ATRIBUTOS
     // DEL DTO. Entonces debo restringir desde otro lado que unicamente se va a ejecutar el update completo si vienen
     // todos los campos del DTO, osea ningun campo del userDto tiene que venir nulo, excepto el ID.
-//    @PatchMapping(value = "/{id}")
-//    public void updateUser(@PathVariable Long id) {
-//
-//    }
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO user) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.updateUser(id, user));
+    }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
