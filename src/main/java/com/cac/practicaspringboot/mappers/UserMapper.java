@@ -14,12 +14,10 @@ public class UserMapper {
         user.setDni(dto.getDni());
         user.setEmail(dto.getEmail());
         user.setPassword(dto.getPassword());
-
         return user;
     }
 
     public static UserDTO userToDto(User user) {
-
         UserDTO dto = new UserDTO();
         dto.setId(user.getId());
         dto.setName(user.getName());
@@ -27,8 +25,6 @@ public class UserMapper {
         dto.setDni(user.getDni());
         dto.setEmail(user.getEmail());
         dto.setPassword(user.getPassword());
-
         return dto;
     }
-
 }

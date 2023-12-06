@@ -1,17 +1,14 @@
 package com.cac.practicaspringboot.controllers;
 
-import com.cac.practicaspringboot.exceptions.UserNotExistsException;
 import com.cac.practicaspringboot.models.DTOs.UserDTO;
 import com.cac.practicaspringboot.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static java.nio.file.Path.of;
 
 // Esta anotacion le indica al framework que vamos a trabajar en formato JSON con diferentes clases.
 // Nos va a permitir trabajar con metodos del protocolo HTTP y usar status code.
@@ -20,7 +17,7 @@ import static java.nio.file.Path.of;
 public class UserController {
 
     // Definir la url de origen para cada solicitud
-    // Para cada mnetodo HTTP permitido debemos realizar una accion
+    // Para cada metodo HTTP permitido debemos realizar una accion
     // Definir el DTO y el Service (Inyeccion de dependencia)
 
     // CRUD: Crear, Leer, Modificar, ELiminar

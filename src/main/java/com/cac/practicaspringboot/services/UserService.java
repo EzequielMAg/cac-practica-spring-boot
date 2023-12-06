@@ -1,9 +1,9 @@
 package com.cac.practicaspringboot.services;
 
 import com.cac.practicaspringboot.exceptions.FatalErrorException;
-import com.cac.practicaspringboot.exceptions.UserAttributesNullException;
+import com.cac.practicaspringboot.exceptions.EntityAttributesNullException;
 import com.cac.practicaspringboot.exceptions.UserEmailExistsException;
-import com.cac.practicaspringboot.exceptions.UserNotExistsException;
+import com.cac.practicaspringboot.exceptions.EntityNotExistsException;
 import com.cac.practicaspringboot.mappers.UserMapper;
 import com.cac.practicaspringboot.models.DTOs.UserDTO;
 import com.cac.practicaspringboot.models.User;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Service
 public class UserService {
 
-    // Inyectar una isntancia del repositorio
+    // Inyectar una instancia del repositorio
     @Autowired
     private final UserRepository repository;
 
@@ -41,9 +41,8 @@ public class UserService {
     public UserDTO createUser(UserDTO userDto) {
 
         User userValidated = validateUserByEmail(userDto.getEmail());
-        System.out.println(userValidated);
-        if(userValidated == null) {
 
+        if(userValidated == null) {
             User userSaved = repository.save(UserMapper.dtoToUser(userDto));
             return UserMapper.userToDto(userSaved);
         }
@@ -63,7 +62,7 @@ public class UserService {
             repository.deleteById(id);
             return "El usuario con id " + id + " ha sido eliminado!";
         } else {
-            throw new UserNotExistsException("El usuario a eliminar elegido no existe!");
+            throw new EntityNotExistsException("El usuario a eliminar elegido no existe!");
         }
     }
     
@@ -96,12 +95,12 @@ public class UserService {
 
             return UserMapper.userToDto(userModified);
         }
-        throw new UserNotExistsException("El usuario con id " + id + " no existe!");
+        throw new EntityNotExistsException("El usuario con id " + id + " no existe!");
     }
 
     public UserDTO updateAllUser(Long id, UserDTO dto) {
         // Primero verifico si existe un usuario con ese id en la BD
-        // TODO: Y validar que todos los datos del "dto" no vienen en null
+        // Y tambien valida que todos los datos del "dto" no vienen en null
         if(repository.existsById(id) && validateUserDtoAttributes(dto)) {
 
             // Consigo el usuario a modificar desde la BD
@@ -125,10 +124,10 @@ public class UserService {
                                              " no existe! Y ademas uno o varios atributos son nulos");
 
         if(!repository.existsById(id))
-            throw new UserNotExistsException("El usuario con id " + id + " no existe!");
+            throw new EntityNotExistsException("El usuario con id " + id + " no existe!");
 
         if(!validateUserDtoAttributes(dto))
-            throw new UserAttributesNullException("Uno o varios de los atributos enviados son nulos");
+            throw new EntityAttributesNullException("Uno o varios de los atributos enviados son nulos");
 
         return null;
     }

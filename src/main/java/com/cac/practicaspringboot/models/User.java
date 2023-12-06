@@ -7,10 +7,9 @@ import lombok.Setter;
 // La siguiente anotacion, no va a funcionar aun porque debemos importar la libreria de JPA/HIBERNATE
 // Hibernate con esta anotacion crea la tabla segun la clase User.
 @Entity
-@Table(name = "usuarios")
 @Getter     // Esta anotacion como la sig, va a generar todos los getters y setters por c/ atributo, gracias a lombok
 @Setter
-
+@Table(name = "usuarios")
 public class User {
 
     @Id
