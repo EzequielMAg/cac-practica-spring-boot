@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 // Esta anotacion le indica al framework que vamos a trabajar en formato JSON con diferentes clases.
 // Nos va a permitir trabajar con metodos del protocolo HTTP y usar status code.
 @RestController
