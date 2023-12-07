@@ -8,30 +8,30 @@ import lombok.Setter;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "cuentas")
+@Table(name = "accounts")
 @Getter
 @Setter
 public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_cuenta")
+    @Column(name = "id_account")
     private Long id;
 
-    @Column(name = "tipo_cuenta")
+    @Column(name = "account_type")
     private AccountType accountType;
 
     private String cbu;
 
     private String alias;
 
-    @Column(name = "monto")
     private BigDecimal amount;
 
-    @Column(name = "dueño")
-    private Long owner;
+    @ManyToOne // Muchas cuentas para un unico usuario
+    private User owner;
 
-    //@ManyToOne(
-    //private List<Transfer> transfers;
+
+//    @ManyToOne
+//    private List<Transfer> transfers;
 
 }

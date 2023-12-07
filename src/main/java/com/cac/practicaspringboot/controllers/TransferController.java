@@ -1,7 +1,6 @@
 package com.cac.practicaspringboot.controllers;
 
-import com.cac.practicaspringboot.models.DTOs.AccountDTO;
-import com.cac.practicaspringboot.models.DTOs.TransferDTO;
+import com.cac.practicaspringboot.models.dtos.TransferDTO;
 import com.cac.practicaspringboot.services.TransferService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +29,8 @@ public class TransferController {
     }
 
     @PostMapping
-    public ResponseEntity<TransferDTO> createTransfer(@RequestBody TransferDTO dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.createTransfer(dto));
+    public ResponseEntity<TransferDTO> performTransfer(@RequestBody TransferDTO dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.performTransfer(dto));
     }
 
     @DeleteMapping(value = "/{id}")

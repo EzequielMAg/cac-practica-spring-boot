@@ -4,14 +4,10 @@ import com.cac.practicaspringboot.exceptions.EntityNotExistsException;
 import com.cac.practicaspringboot.exceptions.FatalErrorException;
 import com.cac.practicaspringboot.exceptions.EntityAttributesNullException;
 import com.cac.practicaspringboot.mappers.AccountMapper;
-import com.cac.practicaspringboot.mappers.UserMapper;
 import com.cac.practicaspringboot.models.Account;
-import com.cac.practicaspringboot.models.DTOs.AccountDTO;
-import com.cac.practicaspringboot.models.DTOs.UserDTO;
-import com.cac.practicaspringboot.models.User;
+import com.cac.practicaspringboot.models.dtos.AccountDTO;
 import com.cac.practicaspringboot.models.enums.AccountType;
 import com.cac.practicaspringboot.repositories.AccountRepository;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -45,7 +41,7 @@ public class AccountService {
         // Seteamos por default que siempre va a tener una caja de ahorra cuando se crea una cuenta
         // TODO: esto habria que refactorizarlo, no me gusto, ya que si quiero crear otro tipo de cuenta,
         //  por default va a ser de tipo caja de ahorro, y eso esta mal...
-        dto.setAccountType(AccountType.SAVINGS_BANK);
+        //dto.setAccountType(AccountType.SAVINGS_BANK);
 
         // Seteamos el saldo en 0 por default
         dto.setAmount(BigDecimal.ZERO);

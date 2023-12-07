@@ -5,7 +5,7 @@ import com.cac.practicaspringboot.exceptions.EntityAttributesNullException;
 import com.cac.practicaspringboot.exceptions.UserEmailExistsException;
 import com.cac.practicaspringboot.exceptions.EntityNotExistsException;
 import com.cac.practicaspringboot.mappers.UserMapper;
-import com.cac.practicaspringboot.models.DTOs.UserDTO;
+import com.cac.practicaspringboot.models.dtos.UserDTO;
 import com.cac.practicaspringboot.models.User;
 import com.cac.practicaspringboot.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

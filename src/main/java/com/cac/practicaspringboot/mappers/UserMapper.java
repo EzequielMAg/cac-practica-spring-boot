@@ -1,6 +1,6 @@
 package com.cac.practicaspringboot.mappers;
 
-import com.cac.practicaspringboot.models.DTOs.UserDTO;
+import com.cac.practicaspringboot.models.dtos.UserDTO;
 import com.cac.practicaspringboot.models.User;
 import lombok.experimental.UtilityClass;
 

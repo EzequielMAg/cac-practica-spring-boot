@@ -1,6 +1,6 @@
 package com.cac.practicaspringboot.controllers;
 
-import com.cac.practicaspringboot.models.DTOs.UserDTO;
+import com.cac.practicaspringboot.models.dtos.UserDTO;
 import com.cac.practicaspringboot.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

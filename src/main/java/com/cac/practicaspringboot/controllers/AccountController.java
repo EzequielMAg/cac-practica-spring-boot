@@ -1,7 +1,6 @@
 package com.cac.practicaspringboot.controllers;
 
-import com.cac.practicaspringboot.models.DTOs.AccountDTO;
-import com.cac.practicaspringboot.models.DTOs.UserDTO;
+import com.cac.practicaspringboot.models.dtos.AccountDTO;
 import com.cac.practicaspringboot.services.AccountService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

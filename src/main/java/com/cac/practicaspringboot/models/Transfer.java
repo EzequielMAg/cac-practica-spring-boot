@@ -1,8 +1,7 @@
 package com.cac.practicaspringboot.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.*;
@@ -10,25 +9,27 @@ import java.time.*;
 @Entity
 @Getter
 @Setter
-@Table(name = "transferencias")
+@Table(name = "transfers")
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Transfer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_transferencia")
+    @Column(name = "id_transfers")
     private Long id;
 
-    @Column(name = "monto")
     private BigDecimal amount;
 
-    @Column(name = "cuenta_origen")
-    private Long sourceAccount;
+    @Column(name = "origin_account")
+    private Long originAccount;
 
-    @Column(name = "cuenta_destino")
+    @Column(name = "target_account")
     private Long targetAccount;
 
-    @Column(name = "fecha_transferencia")
+    @Column(name = "transfer_date")
     private LocalDate transferDate;
 
-    @Column(name = "hora_trandferencia")
+    @Column(name = "transfer_time")
     private LocalTime transferTime;
 }

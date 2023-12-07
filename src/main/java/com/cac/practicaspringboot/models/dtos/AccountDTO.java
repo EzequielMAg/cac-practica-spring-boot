@@ -1,4 +1,4 @@
-package com.cac.practicaspringboot.models.DTOs;
+package com.cac.practicaspringboot.models.dtos;
 
 import com.cac.practicaspringboot.models.enums.AccountType;
 import lombok.Getter;
@@ -17,5 +17,4 @@ public class AccountDTO {
     private String cbu;
     private String alias;
     private BigDecimal amount;
-    private Long owner;
 }

@@ -1,7 +1,7 @@
 package com.cac.practicaspringboot.mappers;
 
 import com.cac.practicaspringboot.models.Account;
-import com.cac.practicaspringboot.models.DTOs.AccountDTO;
+import com.cac.practicaspringboot.models.dtos.AccountDTO;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -17,7 +17,6 @@ public class AccountMapper {
         account.setCbu(dto.getCbu());
         account.setAlias(dto.getAlias());
         account.setAmount(dto.getAmount());
-        account.setOwner(dto.getOwner());
         return account;
     }
 
@@ -28,7 +27,6 @@ public class AccountMapper {
         dto.setCbu(account.getCbu());
         dto.setAlias(account.getAlias());
         dto.setAmount(account.getAmount());
-        dto.setOwner(account.getOwner());
         return dto;
     }
 }

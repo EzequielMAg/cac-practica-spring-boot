@@ -1,4 +1,4 @@
-package com.cac.practicaspringboot.models.DTOs;
+package com.cac.practicaspringboot.models.dtos;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
